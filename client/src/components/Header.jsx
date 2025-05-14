@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-scroll';
 import clsx from 'clsx'
-import Button from './Button';
+import Button from './Button.jsx';
 const Header = () => {
   const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Header = () => {
               <li> <Navlink title={"Services"}/> </li> 
               <li> <Navlink title={"About Us"}/></li> 
               <li> <Navlink title={"Contact Us"}/></li>
-               <Button title={'Login'} goTo={navigate} path={'./login'} />
+               <Button title={'Login'} fn={navigate} para='/login' />
             </ul>
               
           </div>

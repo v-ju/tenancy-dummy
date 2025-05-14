@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import router from './src/routes/v1/index.js';
 import 'dotenv/config';
-import connectDB from './dbconnect.js';
+import connectDB from './controller/dbconnect.js';
 
 const PORT = process.env.PORT;
 console.log(PORT);

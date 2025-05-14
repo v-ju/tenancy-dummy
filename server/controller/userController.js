@@ -12,11 +12,19 @@ export const signup = async(req,res)=>{
         const parsedData = signupSchema.safeParse(req.body);
         if (!parsedData.success){
         return res.status(400).json({
-            error:parsedData.error.errors
+            message:parsedData.error.errors[0].message
         })
     }
 
     const hashedPassword = await bcrypt.hash(parsedData.data.password,10)
+
+    const existingUser = await User.findOne({
+        email: parsedData.data.email
+    })
+
+    if (existingUser){
+        return res.status(400).json({message:'email is aleady registered!'})
+    }
 
     await User.create({
         firstName: parsedData.data.firstName,
@@ -25,27 +33,21 @@ export const signup = async(req,res)=>{
         password:hashedPassword
     })
 
-    return res.status(200).json({message:'User registered successfully!'})
+    return res.status(200).json({message:'User registered successfully..!'})
 
     
     }catch(e){
-        res.json(`Errorss:${e.message}`)
+        res.json({message:`${e.message}`})
     }
 }
   
-    // const existingUser = await User.findOne({
-    //     email: parsedData.data.email
-    // })
-
-    // if (existingUser){
-    //     return res.status(400).json({message:'email is aleady registered!'})
-    // }
+    
 
    
 export const login = async (req,res)=>{
     const parsedData = loginSchema.safeParse(req.body);
      if (!parsedData.success){
-        return res.status(400).json({error: parsedData.error.errors})
+        return res.status(400).json({message: `${parsedData.error.errors[0].message}`})
      }
 
      const user = await User.findOne({
@@ -66,9 +68,9 @@ export const login = async (req,res)=>{
     const userId = user._id;
     const role = user.role
 
-    const token = jwt.sign({userId, role},process.env.JWT_PASS,{expiresIn: '24h'})
+    const token = jwt.sign({userId, role},process.env.JWT_PASS,{expiresIn: '1h'})
     return res.json({
-        message:'Sign Up Successful!',
+        message:'Login Successful!',
         token
     })
 

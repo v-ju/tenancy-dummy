@@ -5,9 +5,12 @@ import Button from '../components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { signupSchema,loginSchema } from '../../../shared/types/index.js';
-console.log({ signupSchema, loginSchema });
+import Popup from '../components/popup.jsx';
+import { login } from '../../controllers/user.js';
+
 const LoginPage = () => {
   const [action, setAction] = useState('Login')
+  const [serverMsg,setServerMsg] = useState('')
 
   const currentSchema = useMemo(() => { 
     return (action === 'Login' ? loginSchema : signupSchema
@@ -17,31 +20,50 @@ const LoginPage = () => {
   useEffect(()=>{
     reset();
   },[action])  
+
+  useEffect(()=>{
+    if (serverMsg){
+      const timer =  setTimeout(() => setServerMsg(''), 3000);
+      return () => clearTimeout(timer)
+    }
+    
+  },[serverMsg])
   
+
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState:{errors},reset} = useForm({resolver: zodResolver(currentSchema)});
+  const { register, handleSubmit, formState:{errors},reset} = useForm({resolver: zodResolver(currentSchema),defaultValues:{email:'',password:'',firstName:'',lastName:''}});
   
   const onSubmit = async (data) => {
     try {
-      const endpoint = action === 'Login' ? '/api/v1/user/login' : '/api/v1/user/signup';
-      const response = await axios.post(endpoint, data);
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      console.log(errors);
-      alert('User registered: ' + response.data.message);
+      let response;
+      if (action === 'Signup'){
+        response = await axios.post('/api/v1/user/signup', data);
+        setAction('Login')
+      
+      } else {
+        response = await login(data);
+        setTimeout(() => navigate('/dashboard'), 1000);
+      }
+ 
+      setServerMsg(response.data.message);
+     
+      
+      
       reset();
+
     } catch (error) {
-      console.log(error.response?.data?.message || 'Registration failed.');
+      let backendMessage = error.response?.data?.message;
+      if (Array.isArray(backendMessage)) {
+        backendMessage = backendMessage[0]?.message || 'Validation failed.';
+      }
+      console.log("Backend error:", backendMessage);
+      setServerMsg(backendMessage || 'Login failed.');
     }
-    
   };
 
-  const onError = async (errors) =>{
-    console.log('Validation errors:', errors);
-  }
-
   return (
+    <>
     <div className='min-h-screen flex justify-center items-center bg-gradient-to-b from-pink-100 to-pink-200'>
       <div className='w-full max-w-md flex flex-col justify-center items-center p-10 shadow-lg border border-transparent rounded-lg bg-white animate-fade-in'>
         
@@ -49,7 +71,7 @@ const LoginPage = () => {
           <h1 className='m-2 font-medium text-xl'>Welcome</h1>
        
         <div className='w-full py-5'>
-          <form key={action} onSubmit={handleSubmit(onSubmit,onError)}  >
+          <form key={action} onSubmit={handleSubmit(onSubmit)}  >
             {action === 'Login' ? <></>
               :<>
               <div className='py-2 flex justify-center'> 
@@ -58,14 +80,10 @@ const LoginPage = () => {
               </div>
               <div>
                 <p className='text-red-500 text-sm'>{errors.firstName?.message}</p>
-                <p className='text-red-500 text-sm'>{errors.lastName?.message}</p>
-                
-              </div> 
-              
+                <p className='text-red-500 text-sm'>{errors.lastName?.message}</p>  
+              </div>
               </>
-              
             }
-            
             <input type='email' placeholder='Email' {...register('email')} className='block p-2 border rounded-lg my-2 w-full'/>
             <p className='text-red-500 text-sm'>{errors.email?.message}</p> 
             
@@ -74,18 +92,20 @@ const LoginPage = () => {
             
             <a className='text-sm text-p5 cursor-pointer'>Forgot Password ? </a>
             <div className='flex justify-center items-center py-4'>
-              <Button title={action}/>
+              <Button type='submit' title={action}/>
             </div>
             
             {action === 'Login' ? <p className='text-sm'>Don't have an account? <a className='text-p5 cursor-pointer' onClick={() => setAction('Signup')}> Sign up </a></p> 
             : <p className='text-sm'>Already have an account? <a className='text-p5 cursor-pointer' onClick={() => setAction('Login')}> Login </a></p>}
-            
-           
+             
           </form>
         </div> 
       </div>
+      {serverMsg && <Popup msg={serverMsg}/>}
     </div>
-  )
-}
+    
+    
+    </>
+  )}
 
 export default LoginPage
