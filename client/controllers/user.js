@@ -1,7 +1,6 @@
 import axios from "axios";
 import api from "../axios.js";
 
-
 export const login = async(data) => {
     
     const response = await axios.post('/api/v1/user/login',data);
@@ -35,3 +34,9 @@ export const fetchUser = async (setUser, navigate) => {
       }
     }
   };
+
+
+export const color = (colors)=>{
+  let i = Math.floor(Math.random() * colors.length)
+  return colors[i];
+}

@@ -59,14 +59,15 @@ const ListingSchema = new Schema({
         trim: true
     },
     image:{
-        type: String,
+        type: [String],
         required:true,
         trim: true},
 
     userId: {
         type: mongoose.Schema.Types.ObjectId, ref:'User'
-    }
-})
+    }},
+    {timestamps: true }
+)
 
 const Listing = mongoose.model('Listing',ListingSchema)
 

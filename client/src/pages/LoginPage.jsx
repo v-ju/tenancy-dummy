@@ -45,11 +45,8 @@ const LoginPage = () => {
         response = await login(data);
         setTimeout(() => navigate('/dashboard'), 1000);
       }
- 
+
       setServerMsg(response.data.message);
-     
-      
-      
       reset();
 
     } catch (error) {
