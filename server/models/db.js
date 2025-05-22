@@ -58,7 +58,12 @@ const ListingSchema = new Schema({
         required:true,
         trim: true
     },
-    image:{
+    currency:{
+        type:String,
+        enum:['INR','USD'],
+        default:'INR'
+    },
+    images:{
         type: [String],
         required:true,
         trim: true},

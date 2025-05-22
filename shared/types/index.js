@@ -58,3 +58,17 @@ export const updateUserSchema = z.object({
         .regex(/[!@#$%&*?]/,"Password must include atleast one special character.").optional(),
 
 })
+
+export const listingSchema = z.object({
+    title: z.string()
+        .min(1, 'Please provide a title.')
+        .max(30,'Title cannot exceed 30 characters'),
+
+    location: z.string()
+        .min(1,'Please provide a location.')
+        .max(30,'Location cannot exceed 30 characters.'),
+    
+    price: z.number().positive('Price must be positive'),
+    currency: z.enum(['INR','USD']).default('INR'),
+    images: z.array(z.string().url())
+})

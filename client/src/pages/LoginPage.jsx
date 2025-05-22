@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import Button from '../components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { signupSchema,loginSchema } from '../../../shared/types/index.js';
 import Popup from '../components/popup.jsx';
 import { login } from '../../controllers/user.js';
+import api from '../../axios.js';
+import { useUserStore } from '../../controllers/globalState.js';
 
 const LoginPage = () => {
   const [action, setAction] = useState('Login')
   const [serverMsg,setServerMsg] = useState('')
+  const setUser = useUserStore((state) => state.setUser);
 
   const currentSchema = useMemo(() => { 
     return (action === 'Login' ? loginSchema : signupSchema
@@ -38,18 +40,25 @@ const LoginPage = () => {
     try {
       let response;
       if (action === 'Signup'){
-        response = await axios.post('/api/v1/user/signup', data);
+        response = await api.post('/user/signup', data);
         setAction('Login')
-      
-      } else {
+        console.log("signup hit")
+      } else if(action === 'Login') {
         response = await login(data);
-        setTimeout(() => navigate('/dashboard'), 1000);
-      }
+        const role =response.data.role
+        const dashboardEndpoint = role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
+        const dashboardRes = await api.get(dashboardEndpoint)
+        const user = dashboardRes.data.user;
+        console.log(user)
+        setUser(user)
+        navigate(dashboardEndpoint)
+    }
 
       setServerMsg(response.data.message);
       reset();
 
     } catch (error) {
+      console.error("Full error object:", error);
       let backendMessage = error.response?.data?.message;
       if (Array.isArray(backendMessage)) {
         backendMessage = backendMessage[0]?.message || 'Validation failed.';
@@ -64,7 +73,7 @@ const LoginPage = () => {
     <div className='min-h-screen flex justify-center items-center bg-gradient-to-b from-pink-100 to-pink-200'>
       <div className='w-full max-w-md flex flex-col justify-center items-center p-10 shadow-lg border border-transparent rounded-lg bg-white animate-fade-in'>
         
-          <img src='biglogo.svg' className='w-45 block m-2'/>
+          <img src='/biglogo.svg' className='w-45 block m-2'/>
           <h1 className='m-2 font-medium text-xl'>Welcome</h1>
        
         <div className='w-full py-5'>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, signup } from "../../../controller/userController.js"
+import { getUser, login, signup } from "../../../controller/userController.js"
 import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js';
 import { User } from '../../../models/db.js';
 const userRouter = express.Router();
@@ -24,24 +24,7 @@ userRouter.put('/update', authenticate, authorizeRoles(["admin","user"]),async (
 
 })
 
-userRouter.get('/dashboard', authenticate, authorizeRoles(["user","admin"]), async(req,res) => {
-        try{
-            const userId = req.user.userId;
-            const user = await User.findById(userId).select('-password')
-
-    
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.status(200).json({ user });
-        }catch(err){
-            res.status(500).json({ message: 'Server error' });
-        }
-
-        //res.json({message: "dashboard"})
-    }
-)
+userRouter.get('/dashboard', authenticate, authorizeRoles(["user"]), getUser)
 
 // userRouter.delete('/delete',userMiddleware,async(req,res)=>{
 //     try {

@@ -35,7 +35,7 @@ const Header = () => {
               <li> <Navlink title={"Services"}/> </li> 
               <li> <Navlink title={"About Us"}/></li> 
               <li> <Navlink title={"Contact Us"}/></li>
-               <Button title={'Login'} fn={navigate} para='/login' />
+               <Button title={'Login'} fn={navigate} para='user/login' />
             </ul>
               
           </div>

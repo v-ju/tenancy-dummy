@@ -71,7 +71,24 @@ export const login = async (req,res)=>{
     const token = jwt.sign({userId, role},process.env.JWT_PASS,{expiresIn: '1h'})
     return res.json({
         message:'Login Successful!',
-        token
+        token,
+        role
     })
 
+}
+
+export const getUser = async(req,res) => {
+    try{
+        const userId = req.user.userId;
+        const user = await User.findById(userId).select('-password')
+
+
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ user });
+    }catch(err){
+        res.status(500).json({ message: 'Server error' });
+    }
 }
