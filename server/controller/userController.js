@@ -82,13 +82,24 @@ export const getUser = async(req,res) => {
         const userId = req.user.userId;
         const user = await User.findById(userId).select('-password')
 
-
-    if (!user) {
+        if (!user) {
         return res.status(404).json({ message: 'User not found' });
-    }
+         }
 
-    res.status(200).json({ user });
-    }catch(err){
+        if (req.user.role === 'admin'){
+            const listings = await Listing.find({userId});
+            return res.status(200)
+                .json({ user,
+                    listings,
+                    hasListings: listings.length > 0
+                });
+        } else {
+            const listings = await Listing.find({});
+            return res.status(200)
+                .json({ user,
+                    listings,
+                });
+        }}catch(err){
         res.status(500).json({ message: 'Server error' });
     }
 }

@@ -7,3 +7,4 @@ adminRouter.get('/dashboard', authenticate, authorizeRoles(["admin"]), getUser)
 
 
 export default adminRouter
+    

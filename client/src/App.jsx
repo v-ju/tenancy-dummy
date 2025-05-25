@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import Homepage from './pages/Homepage.jsx';
-import ListingsForm from './pages/ListingsForm.jsx';
+import ListingsForm from './pages/AdminListingsForm.jsx';
 import UserDashboard from './pages/UserDashboard.jsx';
 import NotFound from './pages/NotFound.jsx';
 

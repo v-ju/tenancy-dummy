@@ -13,7 +13,7 @@ const LoginPage = () => {
   const [action, setAction] = useState('Login')
   const [serverMsg,setServerMsg] = useState('')
   const setUser = useUserStore((state) => state.setUser);
-
+  const setDashboardData = useUserStore((state) =>state.setDashboardData)
   const currentSchema = useMemo(() => { 
     return (action === 'Login' ? loginSchema : signupSchema
     )},[action])
@@ -42,16 +42,17 @@ const LoginPage = () => {
       if (action === 'Signup'){
         response = await api.post('/user/signup', data);
         setAction('Login')
-        console.log("signup hit")
       } else if(action === 'Login') {
         response = await login(data);
-        const role =response.data.role
+        const role = response.data.role
         const dashboardEndpoint = role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
         const dashboardRes = await api.get(dashboardEndpoint)
         const user = dashboardRes.data.user;
-        console.log(user)
+        const dashboardData = dashboardRes.data.listings
+        console.log(dashboardRes)
         setUser(user)
-        navigate(dashboardEndpoint)
+        setDashboardData(dashboardRes)
+        setTimeout(() => navigate(dashboardEndpoint),1000)
     }
 
       setServerMsg(response.data.message);

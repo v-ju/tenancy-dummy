@@ -69,7 +69,9 @@ const ListingSchema = new Schema({
         trim: true},
 
     userId: {
-        type: mongoose.Schema.Types.ObjectId, ref:'User'
+        type: mongoose.Schema.Types.ObjectId, 
+        ref:'User',
+        required: true
     }},
     {timestamps: true }
 )
@@ -77,10 +79,20 @@ const ListingSchema = new Schema({
 const Listing = mongoose.model('Listing',ListingSchema)
 
 const bookingSchema = new Schema({
-    userId: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-    listingId: {type: mongoose.Schema.Types.ObjectId, ref:'Listing'},
-    checkInDate: Date,
-    checkOutDate: Date
+    userId: {type: mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    },
+    listingId: {type: mongoose.Schema.Types.ObjectId,
+        ref:'Listing',
+        required:true
+    },
+    checkInDate:{type: Date,
+        required: true
+    },
+    checkOutDate: {type: Date,
+        required: true
+    }
 })
 
 
