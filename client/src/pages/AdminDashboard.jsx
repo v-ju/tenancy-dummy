@@ -1,5 +1,7 @@
-import HeaderDashboard from './HeaderDashboard.jsx';
+import React from 'react';
+import MainDashboard from './MainDashboard.jsx';
 import SidebarDashboard from './SidebarDashboard.jsx';
+
 
 const AdminDashboard = () => {
   
@@ -7,7 +9,7 @@ const AdminDashboard = () => {
     <div className='flex h-screen w-full'>
       <SidebarDashboard/>
       <div className={`flex-1`}> 
-        <HeaderDashboard/>
+        <MainDashboard/>
       </div>
     </div>
     

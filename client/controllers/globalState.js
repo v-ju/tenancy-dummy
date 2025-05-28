@@ -3,10 +3,10 @@ import {persist} from 'zustand/middleware';
 
 export const useUserStore = create(persist((set,get) => ({
     user: null,
-    dashboardData:null,
-    setDashboardData:(dashboardData) => set({dashboardData}),
+    role: null,
+    setRole: (role) => set({role}),
     setUser: (userData) => set({user: userData}),
-    clearUser: () => ({user: null})
+    clearUser: () => set({user: null, role: null})
 }),{ name: 'auth'}
 ))
 

@@ -3,16 +3,35 @@ import { useSidebarStore, useUserStore } from '../../controllers/globalState.js'
 import { color,logout } from '../../controllers/user.js';
 import Button from '../components/Button.jsx';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import api from '../../axios.js';
 
 const colors = ['bg-pink-500', 'bg-pink-600', 'bg-pink-800', 'bg-pink-700'];
 const bgcolor = color(colors);
 
 const SidebarDashboard = () => {
-    const user = useUserStore((state) => state.user)
-    const initial = user?.firstName?.charAt(0).toUpperCase()
+    const user = useUserStore((state) => state.user);
+    const role = useUserStore((state) => state.role);  
+    const setUser = useUserStore((state) => state.setUser);
+
     const {sidebar, toggleSidebar} = useSidebarStore();
     const navigate = useNavigate();
 
+    useEffect(() => {
+
+      if (!role) return;
+
+      const fetchUser = async() => { const endpoint = role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
+      const dashboardRes = await api.get(endpoint);
+      console.log(dashboardRes)
+      setUser(dashboardRes.data.user);
+      console.log(dashboardRes.data.user)
+      } 
+
+    fetchUser();
+    },[role, setUser])
+
+    const initial = user?.firstName?.charAt(0).toUpperCase()
   return (
     
     <div className={`border-r h-full relative flex flex-col justify-between border-gray-200 group max-md:hidden ${sidebar ? 'md:w-50': 'md:w-15 '}`}>

@@ -46,12 +46,12 @@ export const signup = async(req,res)=>{
    
 export const login = async (req,res)=>{
     const parsedData = loginSchema.safeParse(req.body);
-     if (!parsedData.success){
-        return res.status(400).json({message: `${parsedData.error.errors[0].message}`})
-     }
+    if (!parsedData.success){
+    return res.status(400).json({message: `${parsedData.error.errors[0].message}`})
+    }
 
-     const user = await User.findOne({
-        email: parsedData.data.email})
+    const user = await User.findOne({
+    email: parsedData.data.email})
 
     if(!user){
         return res.status(400).json({
@@ -78,28 +78,40 @@ export const login = async (req,res)=>{
 }
 
 export const getUser = async(req,res) => {
+    console.log(" get user endpoint hit")
     try{
         const userId = req.user.userId;
-        const user = await User.findById(userId).select('-password')
-
+        console.log(userId)
+        const user = await User.findById(userId).select('firstName email -_id')
+        console.log(user)
         if (!user) {
         return res.status(404).json({ message: 'User not found' });
-         }
-
-        if (req.user.role === 'admin'){
-            const listings = await Listing.find({userId});
-            return res.status(200)
-                .json({ user,
-                    listings,
-                    hasListings: listings.length > 0
-                });
-        } else {
-            const listings = await Listing.find({});
-            return res.status(200)
-                .json({ user,
-                    listings,
-                });
-        }}catch(err){
+        }
+        
+        return res.status(200).json({user})
+    }catch(err){
         res.status(500).json({ message: 'Server error' });
     }
 }
+
+export const getListings = async(req, res) => {
+    const userId = req.user.userId;
+    try{
+        if (req.user.role === 'admin'){
+        const listings = await Listing.find({userId});
+        return res.status(200)
+            .json({ message:"Admin listing fetched",
+                listings,
+                hasListings: listings.length > 0
+            });
+    } else {
+        const listings = await Listing.find({});
+        return res.status(200)
+            .json({message:"User listing fetched",listings});
+    }
+    }catch(err){
+        res.status(500).json({message: "Error fetching listings"})
+    } 
+}
+
+// export const createListing = async(()=>{})

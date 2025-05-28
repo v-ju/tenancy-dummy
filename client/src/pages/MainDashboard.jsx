@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 
-const HeaderDashboard = () => {
+const MainDashboard = () => {
     
   return (
     <div className='flex flex-col w-full h-screen'>
@@ -18,4 +18,4 @@ const HeaderDashboard = () => {
   )
 }
 
-export default HeaderDashboard
+export default MainDashboard

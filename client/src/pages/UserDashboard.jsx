@@ -1,13 +1,13 @@
 import React from 'react'
-import SidebarDashboard from './SidebarDashboard'
-import HeaderDashboard from './HeaderDashboard'
+import SidebarDashboard from './SidebarDashboard.jsx'
+import MainDashboard from './MainDashboard.jsx'
 
 const UserDashboard = () => {
   return (
     <div className='flex h-screen w-full'>
       <SidebarDashboard/>
       <div className={`flex-1`}> 
-        <HeaderDashboard/>
+        <MainDashboard/>
       </div>
     </div>
   )

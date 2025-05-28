@@ -4,14 +4,14 @@ import { useUserStore } from '../../controllers/globalState'
 
 const ProtectedRoute = ({roles}) => {
     const token = localStorage.getItem('token')
-    const user = useUserStore((state) => state.user);
+    const role = useUserStore((state) => state.role);
 
     if (isTokenExpired(token)){
       localStorage.removeItem('token' );
       return <Navigate to='user/login' replace />;
     }
 
-    if (roles && (!user || !roles.includes(user.role))) {
+    if (roles && !roles.includes(role)) {
     return <Navigate to="/NotFound" replace />;
     }
 

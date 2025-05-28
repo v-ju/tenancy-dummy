@@ -3,8 +3,9 @@ import api from "../axios.js";
 import { useUserStore } from "./globalState.js";
 
 export const login = async(data) => {
-    
+  console.log("inside fronetend login")
     const response = await api.post('/user/login',data);
+    console.log(response)
     const token = response.data.token;
     localStorage.setItem('token',token);
 
