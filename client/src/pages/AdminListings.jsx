@@ -3,7 +3,7 @@ import React from 'react'
 const AdminListings = () => {
   return (
     <div>
-      hi
+      Hi
     </div>
   )
 }

@@ -13,7 +13,7 @@ const LoginPage = () => {
   const [action, setAction] = useState('Login')
   const [serverMsg,setServerMsg] = useState('')
   const setRole = useUserStore((state) => state.setRole);
-  const role = useUserStore((state) => state.role);
+  // const role = useUserStore((state) => state.role);
   const currentSchema = useMemo(() => { 
     return (action === 'Login' ? loginSchema : signupSchema
     )},[action])
@@ -27,9 +27,7 @@ const LoginPage = () => {
     if (serverMsg){
       const timer =  setTimeout(() => setServerMsg(''), 3000);
       return () => clearTimeout(timer)
-    }
-    
-    
+    }  
   },[serverMsg])
   
 
@@ -46,7 +44,7 @@ const LoginPage = () => {
       } else if(action === 'Login') {
         response = await login(data);
         const role = response.data.role;
-        setRole(  role)
+        setRole(role)
         const dashboardEndpoint = role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
         setTimeout(() => navigate(dashboardEndpoint),1000)
     }

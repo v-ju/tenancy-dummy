@@ -39,14 +39,17 @@ const userSchema = new Schema({
     {timestamps: true }
 );
 
-const User = mongoose.model('User',userSchema)
-
 
 const ListingSchema = new Schema({
     title: {
         type: String,   
         required:true,
         trim: true
+    },
+    description:{
+        type: String,
+        required: true,
+        
     },
     location:{
         type: String,
@@ -66,7 +69,7 @@ const ListingSchema = new Schema({
     images:{
         type: [String],
         required:true,
-        trim: true},
+        },
 
     userId: {
         type: mongoose.Schema.Types.ObjectId, 
@@ -76,7 +79,6 @@ const ListingSchema = new Schema({
     {timestamps: true }
 )
 
-const Listing = mongoose.model('Listing',ListingSchema)
 
 const bookingSchema = new Schema({
     userId: {type: mongoose.Schema.Types.ObjectId,
@@ -95,6 +97,9 @@ const bookingSchema = new Schema({
     }
 })
 
+const User = mongoose.model('User',userSchema)
+
+const Listing = mongoose.model('Listing',ListingSchema)
 
 const Booking = mongoose.model('Booking', bookingSchema)
 

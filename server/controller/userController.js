@@ -1,13 +1,11 @@
 import 'dotenv/config';
-import { loginSchema, signupSchema, updateUserSchema } from '../../shared/types/index.js';
+import { listingSchema, loginSchema, signupSchema, updateUserSchema } from '../../shared/types/index.js';
 import {User, Listing, Booking} from '../models/db.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 
 export const signup = async(req,res)=>{
-    //destructure zod validated data from input fields
-    //if data incorrect exit early, else hash pass and create user.
     try{
         const parsedData = signupSchema.safeParse(req.body);
         if (!parsedData.success){
@@ -40,14 +38,11 @@ export const signup = async(req,res)=>{
         res.json({message:`${e.message}`})
     }
 }
-  
-    
-
-   
+     
 export const login = async (req,res)=>{
     const parsedData = loginSchema.safeParse(req.body);
     if (!parsedData.success){
-    return res.status(400).json({message: `${parsedData.error.errors[0].message}`})
+    return res.status(400).json({messages: parsedData.error.errors})
     }
 
     const user = await User.findOne({
@@ -78,12 +73,11 @@ export const login = async (req,res)=>{
 }
 
 export const getUser = async(req,res) => {
-    console.log(" get user endpoint hit")
     try{
         const userId = req.user.userId;
-        console.log(userId)
+        
         const user = await User.findById(userId).select('firstName email -_id')
-        console.log(user)
+       
         if (!user) {
         return res.status(404).json({ message: 'User not found' });
         }
@@ -93,6 +87,7 @@ export const getUser = async(req,res) => {
         res.status(500).json({ message: 'Server error' });
     }
 }
+
 
 export const getListings = async(req, res) => {
     const userId = req.user.userId;
@@ -114,4 +109,25 @@ export const getListings = async(req, res) => {
     } 
 }
 
-// export const createListing = async(()=>{})
+export const createListing = async(req, res) => {
+
+    try{
+        const parsedListingData = listingSchema.safeParse(req.body);
+        if (!parsedListingData.success){
+            return res.status(400).json({message:"Not successful",error:parsedListingData.error.errors})
+        }
+
+        const imageUrls = req.files.map(file => file.location)
+
+        const newListing = await Listing.create({
+            ...parsedListingData.data,
+            images:imageUrls,
+            userId: req.user.userId
+        })
+
+        return res.status(201).json({message: "Listing created",data: newListing})
+
+    }catch(err){
+        return res.status(500).json({ message: "Server error", error: err.message });
+    }
+}

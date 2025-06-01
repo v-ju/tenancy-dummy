@@ -63,6 +63,7 @@ export const listingSchema = z.object({
     title: z.string()
         .min(1, 'Please provide a title.')
         .max(30,'Title cannot exceed 30 characters'),
+    description: z.string().min(1, 'Please provide a description.'),
 
     location: z.string()
         .min(1,'Please provide a location.')
@@ -70,5 +71,8 @@ export const listingSchema = z.object({
     
     price: z.number().positive('Price must be positive'),
     currency: z.enum(['INR','USD']).default('INR'),
-    images: z.array(z.string().url())
+    images: z.array(z.string().url()),
+    userId: z
+    .string()
+    .min(1, 'User ID is required.')
 })

@@ -1,11 +1,9 @@
-import axios from "axios";
 import api from "../axios.js";
-import { useUserStore } from "./globalState.js";
+import { useUserStore} from "./globalState.js";
 
 export const login = async(data) => {
-  console.log("inside fronetend login")
+  
     const response = await api.post('/user/login',data);
-    console.log(response)
     const token = response.data.token;
     localStorage.setItem('token',token);
 
@@ -25,4 +23,18 @@ export const logout = async(navigate)=>{
 export const color = (colors)=>{
   let i = Math.floor(Math.random() * colors.length)
   return colors[i];
+}
+
+export const fetchListings = async(setListings,listingChecker) => {
+    try {
+
+      const response = await (api.get('/admin/listings'));
+      const {listings , hasListings} = response.data
+      console.log("inside fetchlisting",listings, hasListings)
+      setListings(listings);
+      listingChecker(hasListings);
+
+
+    }catch(err){
+      return ('Error fetching listings', err)}
 }

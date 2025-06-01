@@ -23,9 +23,9 @@ const SidebarDashboard = () => {
 
       const fetchUser = async() => { const endpoint = role === 'admin' ? '/admin/dashboard' : '/user/dashboard'
       const dashboardRes = await api.get(endpoint);
-      console.log(dashboardRes)
+      
       setUser(dashboardRes.data.user);
-      console.log(dashboardRes.data.user)
+      
       } 
 
     fetchUser();

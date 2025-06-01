@@ -8,9 +8,16 @@ export const useUserStore = create(persist((set,get) => ({
     setUser: (userData) => set({user: userData}),
     clearUser: () => set({user: null, role: null})
 }),{ name: 'auth'}
+));
+
+export const useListingsStore = create((set) => ({
+    listings: [],
+    setListings : (newListings) => set({listings : newListings})
+}
+
 ))
 
 export const useSidebarStore = create((set) => ({
     sidebar: true,
     toggleSidebar: () => set((state) => ({sidebar: !state.sidebar}))
-}))
+}));

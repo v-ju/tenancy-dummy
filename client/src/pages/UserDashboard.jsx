@@ -1,4 +1,3 @@
-import React from 'react'
 import SidebarDashboard from './SidebarDashboard.jsx'
 import MainDashboard from './MainDashboard.jsx'
 
