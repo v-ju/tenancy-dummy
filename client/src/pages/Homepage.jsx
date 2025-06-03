@@ -6,7 +6,7 @@ const Homepage = ({imgpath1, imgpath2, title1, title2,nav, btntext}) => {
   const navigate = useNavigate();
 
   return (
-    <div className='flex-1 flex '>
+    <div className='flex-1 flex mt-20'>
         <div className='flex flex-col w-full justify-center items-center'>
             <img className='pb-2' src={imgpath1} width={200} height={200} />
             <div className='text-lg font-bold pb-10 text-center  leading-8'>

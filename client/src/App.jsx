@@ -5,10 +5,11 @@ import LoginPage from './pages/LoginPage.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import Homepage from './pages/Homepage.jsx';
-import ListingsForm from './pages/AdminListingsForm.jsx';
 import UserDashboard from './pages/UserDashboard.jsx';
 import NotFound from './pages/NotFound.jsx';
 import AdminHomepage from './pages/AdminHomepage.jsx';
+import AdminListingsForm from './pages/AdminListingsForm.jsx';
+import AdminListings from './pages/AdminListings.jsx';
 
 function App() {
   
@@ -23,7 +24,8 @@ function App() {
         <Route element={<ProtectedRoute roles={['admin']}/>}>
           <Route path='/admin/dashboard' element={<AdminDashboard/>}>
             <Route index element={<AdminHomepage/>}/>
-            <Route path='listing' element={<ListingsForm/>} />
+            <Route path='listing' element={<AdminListingsForm/>} />
+            <Route index element={<AdminListings/>} />
           </Route>
         </Route>
         <Route element={<ProtectedRoute roles={['user']}/>}>

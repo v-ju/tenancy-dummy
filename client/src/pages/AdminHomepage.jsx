@@ -8,14 +8,13 @@ const AdminHomepage = () => {
 
   const setListings = useListingsStore((state) => state.setListings);
   const [checkListings, setCheckListings] = useState(null)
-
+  const isListingsPage = location.pathname.endsWith('/listings');
   useEffect(()=>{
     fetchListings(setListings, setCheckListings);
-    console.log("typeof fetchListings:", typeof fetchListings);
   },[])
-  console.log("AdminHomepage mounted");
+  
   return <>
-    {checkListings ? <AdminListings/> 
+    {!isListingsPage && checkListings ? <AdminListings/> 
     : <Homepage
      imgpath1='/house.jpg' 
      imgpath2='/plus.svg' 

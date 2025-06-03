@@ -30,7 +30,6 @@ export const fetchListings = async(setListings,listingChecker) => {
 
       const response = await (api.get('/admin/listings'));
       const {listings , hasListings} = response.data
-      console.log("inside fetchlisting",listings, hasListings)
       setListings(listings);
       listingChecker(hasListings);
 

@@ -7,7 +7,7 @@ const AdminDashboard = () => {
   return <>
     <div className='flex h-screen w-full'>
       <SidebarDashboard/>
-      <div className={`flex-1`}> 
+      <div className={`flex-1 overflow-y-auto`}> 
         <MainDashboard/>
       </div>
     </div>
@@ -16,3 +16,4 @@ const AdminDashboard = () => {
 }
 
 export default AdminDashboard
+
