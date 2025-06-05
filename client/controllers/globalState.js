@@ -12,7 +12,9 @@ export const useUserStore = create(persist((set,get) => ({
 
 export const useListingsStore = create((set) => ({
     listings: [],
-    setListings : (newListings) => set({listings : newListings})
+    setListings : (newListings) => set({listings : newListings}),
+    publicListings: [],
+    setPublicListings: (listings) => set({publicListings: listings})
 }
 
 ))

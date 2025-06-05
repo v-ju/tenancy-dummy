@@ -1,4 +1,3 @@
-import React from 'react'
 import { aboutUsData } from '../data'
 import { Element } from 'react-scroll'
 
