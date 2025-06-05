@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSidebarStore, useUserStore } from '../../controllers/globalState.js'
 import { color,logout } from '../../controllers/user.js';
 import Button from '../components/Button.jsx';

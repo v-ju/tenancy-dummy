@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { useListingsStore } from '../../controllers/globalState'
+import { useEffect, useState } from 'react'
+import { useListingsStore, useUserStore } from '../../controllers/globalState'
 import Homepage from './Homepage.jsx'
-import AdminListings from './AdminListings.jsx'
+import Listings from './Listings.jsx'
 import { fetchListings } from '../../controllers/user.js'
 
 const AdminHomepage = () => {
-
+  const role = useUserStore((state) => state.role)
   const setListings = useListingsStore((state) => state.setListings);
   const [checkListings, setCheckListings] = useState(null)
+  
   const isListingsPage = location.pathname.endsWith('/listings');
   useEffect(()=>{
-    fetchListings(setListings, setCheckListings);
+    fetchListings(role,setListings, setCheckListings);
   },[])
   
   return <>
-    {!isListingsPage && checkListings ? <AdminListings/> 
+    {!isListingsPage && checkListings ? <Listings/> 
     : <Homepage
      imgpath1='/house.jpg' 
      imgpath2='/plus.svg' 

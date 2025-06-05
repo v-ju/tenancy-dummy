@@ -88,13 +88,12 @@ export const getUser = async(req,res) => {
     }
 }
 
-
 export const getListings = async(req, res) => {
-    const userId = req.user.userId;
+    const {userId, role} = req.user;
     try{
         let listings;
-        if (req.user.role === 'admin'){
-        listings = await Listing.find({userId}).select("title description location price currency images -_id");
+        if (role === 'admin'){
+        listings = await Listing.find({userId}).select("title description location price currency images ");
         return res.status(200)
             .json({ message:"Admin listing fetched",
                 listings,
@@ -106,7 +105,7 @@ export const getListings = async(req, res) => {
             .json({message:"User listing fetched",listings});
     }
     }catch(err){
-        res.status(500).json({message: "Error fetching listings"})
+        res.status(500).json({message: "Error fetching listings",err})
     } 
 }
 

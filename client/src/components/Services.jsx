@@ -1,4 +1,3 @@
-import React from 'react'
 import Card from './Card'
 import { servicesData } from '../data'
 import { Element } from 'react-scroll'

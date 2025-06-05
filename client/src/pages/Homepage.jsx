@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Homepage = ({imgpath1, imgpath2, title1, title2,nav, btntext}) => {

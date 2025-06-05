@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUser, login, signup } from "../../../controller/userController.js"
+import { getListings, getUser, login, signup } from "../../../controller/userController.js"
 import { authenticate, authorizeRoles } from '../../middleware/authMiddleware.js';
 import { User } from '../../../models/db.js';
 const userRouter = express.Router();
@@ -24,5 +24,8 @@ userRouter.put('/update', authenticate, authorizeRoles(["admin","user"]),async (
 })
 
 userRouter.get('/dashboard', authenticate, authorizeRoles(["user"]), getUser)
+
+
+userRouter.get('/listings', authenticate, authorizeRoles(["user"]), getListings)
 
 export default userRouter;
