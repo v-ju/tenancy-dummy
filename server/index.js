@@ -5,7 +5,6 @@ import 'dotenv/config';
 import connectDB from './controller/dbconnect.js';
 
 const PORT = process.env.PORT;
-console.log(PORT);
 
 const app = express();
 

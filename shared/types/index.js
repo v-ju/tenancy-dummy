@@ -67,7 +67,7 @@ export const listingSchema = z.object({
     description: z.string()
         .min(1, 'Please provide a description.')
         .min(1, 'Please provide a title.')
-        .max(100,'Title cannot exceed 30 characters'),
+        .max(300,'Description cannot exceed 100 characters'),
 
     location: z.string()
         .min(1,'Please provide a location.')

@@ -1,5 +1,5 @@
 import Card from './Card'
-import { servicesData } from '../data'
+import { servicesData } from '../data.js'
 import { Element } from 'react-scroll'
 
 const Services = () => {

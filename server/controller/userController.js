@@ -102,7 +102,7 @@ export const getListings = async(req, res) => {
     } else {
         listings = await Listing.find({});
         return res.status(200)
-            .json({message:"User listing fetched",listings});
+            .json({message:"User listing fetched",listings,hasListings: listings.length > 0});
     }
     }catch(err){
         res.status(500).json({message: "Error fetching listings",err})
@@ -110,7 +110,6 @@ export const getListings = async(req, res) => {
 }
 
 export const createListing = async(req, res) => {
-
     try{
         const parsedListingData = listingSchema.safeParse(req.body);
         if (!parsedListingData.success){

@@ -1,7 +1,7 @@
 export const servicesData = [
     {id:1,
     title:"Managing Tenacies",
-    description:"Our comprehensive tenancy management tool is designed to simplify every aspect of managing your rental properties. It offers a one-stop solution for handling the multiple facets, complexities, and nuances of tenancy. With built-in alerting, calendar, and time management features, you can stay on top of important dates and deadlines effortlessly. Our issue tracking system ensures that any tenant or property-related concerns are logged, monitored, and resolved efficiently. This tool is perfect for landlords seeking an organized, streamlined approach to tenancy management"
+    description:"Our comprehensive tenancy management tool is designed to simplify every aspect of managing your rental properties. It offers a one-stop solution for handling the multiple facets, complexities, and nuances of tenancy. With built-in alerting, calendar, and time management features, you can stay on top of important dates and deadlines effortlessly. Our issue tracking system ensures that any tenant or property-related concerns are logged, monitored, and resolved efficiently. This tool is perfect for landlords seeking an organized, streamlined approach to tenancy management."
     },
     {id:2,
         title:"Reporting",

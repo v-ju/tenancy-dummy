@@ -33,7 +33,7 @@ const SidebarDashboard = () => {
     const initial = user?.firstName?.charAt(0).toUpperCase()
   return (
     
-    <div className={`border-r min-h-screen relative flex flex-col justify-between border-gray-200 group max-md:hidden ${sidebar ? 'md:w-50': 'md:w-15 '}`}>
+    <div className={`border-r min-h-screen relative flex flex-col justify-between border-gray-200 group max-md:hidden ${sidebar ? 'md:w-40 lg:w-45': 'md:w-15'}`}>
         <div >
             <div className='flex my-2 px-2 justify-center items-center'>
                 <div className={`flex border-transparent mr-1 justify-center items-center rounded-full ${bgcolor} w-6 h-6 ${sidebar ? '' : 'hidden'}`}><span className='text-[10px] text-white'>{initial}</span></div>

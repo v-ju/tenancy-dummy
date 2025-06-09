@@ -66,7 +66,7 @@ const LoginPage = () => {
   return (
     <>
     <div className='min-h-screen flex justify-center items-center bg-gradient-to-b from-pink-100 to-pink-200'>
-      <div className='w-full max-w-md flex flex-col justify-center items-center p-10 shadow-lg border border-transparent rounded-lg bg-white animate-fade-in'>
+      <div className='w-full max-w-md flex flex-col justify-center items-center p-10 max-lg:w-100 max-lg:h-110 max shadow-lg border border-transparent rounded-lg bg-white animate-fade-in'>
         
           <img src='/biglogo.svg' className='w-45 block m-2'/>
           <h1 className='m-2 font-medium text-xl'>Welcome</h1>

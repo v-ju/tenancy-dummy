@@ -72,7 +72,7 @@ const AdminListingsForm = () => {
                         </select>
                         <br/>
                         <p className='text-red-500 text-sm '>{errors.price?.message}</p>
-
+                        
                         <input
                         type="file"
                         multiple    
