@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { listingSchema, loginSchema, signupSchema, updateUserSchema } from '../../shared/types/index.js';
-import {User, Listing, Booking} from '../models/db.js';
+import { listingSchema, loginSchema, signupSchema} from '#shared/index.js';
+import {User, Listing} from '../models/db.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 

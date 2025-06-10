@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import Button from '../components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signupSchema,loginSchema } from '../../../shared/types/index.js';
+import { signupSchema,loginSchema } from '@shared/index.js'
 import Popup from '../components/popup.jsx';
 import { login } from '../../controllers/user.js';
 import api from '../../axios.js';
@@ -13,7 +13,6 @@ const LoginPage = () => {
   const [action, setAction] = useState('Login')
   const [serverMsg,setServerMsg] = useState('')
   const setRole = useUserStore((state) => state.setRole);
-  // const role = useUserStore((state) => state.role);
   const currentSchema = useMemo(() => { 
     return (action === 'Login' ? loginSchema : signupSchema
     )},[action])

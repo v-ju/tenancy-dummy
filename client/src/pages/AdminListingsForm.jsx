@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm} from 'react-hook-form';
-import { listingSchema } from '../../../shared/types';
+import { listingSchema } from '@shared/index.js'
 import { useState } from 'react';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';

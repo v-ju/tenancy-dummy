@@ -6,6 +6,9 @@
     "server": "nodemon index.js"
   },
   "type": "module",
+  "imports": {
+   "#shared/": "../shared/types/"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
