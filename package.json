@@ -1,6 +1,6 @@
 {
   "name": "tenancy-dummy",
-  "type": "module",
+  "type": "module", 
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "npm@11.4.1",
+  "packageManager": "pnpm@8.15.4",
   "workspaces": [
     "apps/*",
     "packages/*"
