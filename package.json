@@ -1,23 +1,28 @@
 {
   "name": "tenancy-dummy",
-  "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix client\" \"npm run server --prefix server\""
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.4",
+    "typescript": "5.8.2"
   },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@11.4.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
-    "@hookform/resolvers": "^5.0.1",
-    "axios": "^1.9.0",
-    "mongoose": "^8.14.1",
-    "nodemon": "^3.1.10",
-    "zod": "^3.24.3"
+    "zod": "^3.25.57"
   }
 }
