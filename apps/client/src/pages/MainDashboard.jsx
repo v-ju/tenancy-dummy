@@ -11,7 +11,7 @@ const MainDashboard = () => {
               <img className='mx-2 my-3 p-1 cursor-pointer hover:transition hover:duration-200 hover:shadow-md hover:shadow-gray-500 border-transparent rounded' src='/settings.svg' width={27} height={20}/>
           </header>
         </div>
-        <div className="flex-1 overflow-y-auto px-4">
+        <div className="flex-1 overflow-y-auto px-4 max-lg:px-1">
           <Outlet />
         </div>  
     </div>   

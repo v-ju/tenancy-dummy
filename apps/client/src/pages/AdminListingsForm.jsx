@@ -53,8 +53,8 @@ const AdminListingsForm = () => {
     }           
     return (
         <div className='flex-1 flex '>
-            <div className='flex flex-col w-full justify-start items-start m-5'>
-                <div className='border border-gray-300 shadow-xl rounded-xl p-5 object-cover h-min w-3xl'>
+            <div className='flex flex-col w-full justify-start items-start m-5 max-lg:m-2'>
+                <div className='border border-gray-300 shadow-xl rounded-xl p-5 object-cover h-min w-3xl max-lg:w-xl max-md:w-[400px]'>
                     <span className='text-2xl font-medium'> Add a New Property </span>
                     <form onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'  >
                         
@@ -64,7 +64,7 @@ const AdminListingsForm = () => {
                         <textarea
                             id="description"
                             rows="4"
-                            className="peer w-120 border-0 bg-gray-100 outline-transparent rounded-lg px-3 pt-2"
+                            className="peer w-120 max-md:w-90 border-0 bg-gray-100 outline-transparent rounded-lg px-3 pt-2"
                             placeholder="Description"
                             {...register('description')} 
                         />
