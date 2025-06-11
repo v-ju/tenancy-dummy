@@ -3,7 +3,7 @@ import { isTokenExpired } from "./controllers/token.js";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css"
 
-const api = axios.create({baseURL: '/api/v1'});
+const api = axios.create({baseURL: import.meta.env.VITE_API_URL});
 
 api.interceptors.request.use(
     (config) => {
